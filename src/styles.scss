@@ -4,3 +4,19 @@
    themes: retro --default;
  }
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap');
+
+body {
+  font-family: 'Cairo', sans-serif;
+}
+
+@layer utilities {
+  .my-container {
+    @apply mx-auto max-w-full px-4;
+  }
+
+  @media (min-width: 768px) {
+    .my-container {
+      padding-inline: calc(var(--spacing) * 20);
+    }
+  }
+}
