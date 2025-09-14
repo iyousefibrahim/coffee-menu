@@ -1,0 +1,59 @@
+@if(coffeeItem()){
+<div
+  class="card bg-base-200 h-full shadow-2xl hover:shadow-3xl duration-300 border border-accent/20"
+>
+  <figure class="relative overflow-hidden">
+    <img
+      [src]="coffeeItem().image || '/images/coffee-fallback.jpg'"
+      [alt]="coffeeItem().title || 'Coffee Image'"
+      class="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
+      loading="lazy"
+    />
+    <div
+      class="absolute inset-0 bg-base-300 animate-pulse"
+      [style.display]="'none'"
+      #imageLoader
+    ></div>
+  </figure>
+
+  <div class="card-body p-6">
+    <h2 class="card-title text-2xl font-black text-accent mb-3">
+      {{ coffeeItem().title || "Unnamed Coffee" }}
+      @if(coffeeItem().title &&
+      coffeeItem().title.toLowerCase().includes('special')) {
+      <div class="badge badge-secondary">SPECIAL</div>
+      }
+    </h2>
+
+    <p class="text-base-content/80 mb-4 leading-relaxed">
+      {{
+        coffeeItem().description ||
+          "A delicious coffee blend crafted with care. Perfect for any time of day."
+      }}
+    </p>
+
+    <div class="mb-4">
+      <h4 class="font-bold text-accent mb-2">INGREDIENTS:</h4>
+      @if(coffeeItem().ingredients && coffeeItem().ingredients.length > 0) {
+      <div class="flex flex-wrap gap-2">
+        @for (ingredient of coffeeItem().ingredients; track ingredient) {
+        <span class="badge badge-outline badge-sm">
+          {{ ingredient }}
+        </span>
+        }
+      </div>
+      } @else {
+      <div class="flex flex-wrap gap-2">
+        <span class="badge badge-outline badge-sm opacity-50">
+          Ingredients not specified
+        </span>
+      </div>
+      }
+    </div>
+
+    <div class="card-actions justify-end items-center">
+      <button class="btn btn-md bg-accent text-white">ORDER NOW</button>
+    </div>
+  </div>
+</div>
+}

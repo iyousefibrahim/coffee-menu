@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { MenuListComponent } from "../../features/menu/components/menu-list/menu-list.component";
 
 @Component({
   selector: 'app-home-page',
-  imports: [],
+  imports: [MenuListComponent],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss'
 })

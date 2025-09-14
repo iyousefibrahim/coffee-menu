@@ -1,0 +1,15 @@
+<div class="max-w-7xl mx-auto p-6">
+  @if(isLoading()) {
+  <app-menu-skeleton />
+  } @else if(error()) {
+  <app-error [error]="error()" />
+  } @else if(coffeeItems().length === 0) {
+  <app-menu-empty />
+  } @else {
+  <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+    @for (coffeeItem of coffeeItems(); track coffeeItem.id) {
+    <app-menu-item [coffeeItem]="coffeeItem" />
+    }
+  </div>
+  }
+</div>

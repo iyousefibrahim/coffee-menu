@@ -1,0 +1,32 @@
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+  @for(i of [1,2,3,4,5,6]; track i) {
+  <div class="card bg-base-200 shadow-2xl border border-accent/20">
+    <figure class="relative overflow-hidden">
+      <div class="skeleton h-64 w-full"></div>
+      <div class="absolute top-4 right-4 skeleton h-6 w-12 rounded-full"></div>
+    </figure>
+    <div class="card-body p-6">
+      <div class="mb-3">
+        <div class="skeleton h-8 w-3/4 mb-2"></div>
+        <div class="skeleton h-6 w-20 rounded-full"></div>
+      </div>
+      <div class="mb-4">
+        <div class="skeleton h-4 w-full mb-2"></div>
+        <div class="skeleton h-4 w-full mb-2"></div>
+        <div class="skeleton h-4 w-2/3"></div>
+      </div>
+      <div class="mb-4">
+        <div class="skeleton h-4 w-24 mb-2"></div>
+        <div class="flex flex-wrap gap-2">
+          <div class="skeleton h-6 w-16 rounded-full"></div>
+          <div class="skeleton h-6 w-20 rounded-full"></div>
+          <div class="skeleton h-6 w-18 rounded-full"></div>
+        </div>
+      </div>
+      <div class="card-actions justify-between items-center">
+        <div class="skeleton h-8 w-24 rounded-btn"></div>
+      </div>
+    </div>
+  </div>
+  }
+</div>
