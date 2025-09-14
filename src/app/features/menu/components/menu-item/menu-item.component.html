@@ -4,7 +4,11 @@
 >
   <figure class="relative overflow-hidden">
     <img
-      [src]="coffeeItem().image || '/images/coffee-fallback.jpg'"
+      [src]="
+        coffeeItem().image === null
+          ? '/images/coffee-fallback.jpg'
+          : coffeeItem().image
+      "
       [alt]="coffeeItem().title || 'Coffee Image'"
       class="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
       loading="lazy"

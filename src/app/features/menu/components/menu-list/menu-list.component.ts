@@ -5,7 +5,9 @@ import {
   signal,
   WritableSignal,
   inject,
+  DestroyRef,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Coffee } from '../../interfaces/Coffee';
 import { MenuSkeletonComponent } from '../menu-skeleton/menu-skeleton.component';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
@@ -29,21 +31,29 @@ export class MenuListComponent implements OnInit {
   error: WritableSignal<string | null> = signal(null);
 
   private readonly _MenuService = inject(MenuService);
+  private readonly destroyRef = inject(DestroyRef);
 
   getCoffeeItems() {
     this.isLoading.set(true);
     this.error.set(null);
 
-    this._MenuService.getMenu().subscribe({
-      next: (res) => {
-        this.coffeeItems.set(res);
-        this.isLoading.set(false);
-      },
-      error: (err) => {
-        this.isLoading.set(false);
-        this.error.set(err);
-      },
-    });
+    this._MenuService
+      .getMenu()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (res) => {
+          this.isLoading.set(false);
+          const filtered = res.filter(
+            (item) => item.image !== 'quy' && item.title !== 'quy'
+          );
+          this.coffeeItems.set(filtered);
+          console.log(filtered);
+        },
+        error: (err) => {
+          this.isLoading.set(false);
+          this.error.set(err);
+        },
+      });
   }
 
   ngOnInit(): void {
