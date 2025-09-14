@@ -6,8 +6,13 @@
 <app-menu-empty />
 } @else {
 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-  @for (coffeeItem of coffeeItems(); track coffeeItem.id) {
+  @for (coffeeItem of visibleItems(); track coffeeItem.id) {
   <app-menu-item [coffeeItem]="coffeeItem" />
   }
 </div>
-}
+
+@if(hasMore()) {
+<div class="text-center mt-8">
+  <button class="btn btn-lg btn-accent text-white" (click)="showMore()">Show More</button>
+</div>
+} }

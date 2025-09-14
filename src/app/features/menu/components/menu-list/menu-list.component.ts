@@ -6,6 +6,7 @@ import {
   WritableSignal,
   inject,
   DestroyRef,
+  computed,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Coffee } from '../../interfaces/Coffee';
@@ -27,11 +28,22 @@ import { MenuEmptyComponent } from '../menu-empty/menu-empty.component';
 })
 export class MenuListComponent implements OnInit {
   coffeeItems: WritableSignal<Coffee[]> = signal([]);
+  itemsToShow: WritableSignal<number> = signal(9);
   isLoading: WritableSignal<boolean> = signal(false);
   error: WritableSignal<string | null> = signal(null);
 
   private readonly _MenuService = inject(MenuService);
   private readonly destroyRef = inject(DestroyRef);
+
+  visibleItems = computed(() =>
+    this.coffeeItems().slice(0, this.itemsToShow())
+  );
+
+  hasMore = computed(() => this.itemsToShow() < this.coffeeItems().length);
+
+  showMore() {
+    this.itemsToShow.set(this.itemsToShow() + 9);
+  }
 
   getCoffeeItems() {
     this.isLoading.set(true);
@@ -47,7 +59,6 @@ export class MenuListComponent implements OnInit {
             (item) => item.image !== 'quy' && item.title !== 'quy'
           );
           this.coffeeItems.set(filtered);
-          console.log(filtered);
         },
         error: (err) => {
           this.isLoading.set(false);
